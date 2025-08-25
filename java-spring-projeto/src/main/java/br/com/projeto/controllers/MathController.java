@@ -1,5 +1,6 @@
 package br.com.projeto.controllers;
 
+import br.com.projeto.exception.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,12 +14,14 @@ public class MathController {
     public double sum(
             @PathVariable("a") String a,
             @PathVariable("b") String b) throws Exception {
-        if (!isNumeric(a) || !isNumeric(b)) throw new IllegalAccessException();
+        if (!isNumeric(a) || !isNumeric(b)) throw new UnsupportedMathOperationException("Please set a numeric value");
         return convertToDouble(a) + convertToDouble(b);
     }
 
     private double convertToDouble(String valor) {
-        return Double.parseDouble(valor);
+        if (valor.isEmpty() || valor == null) throw new UnsupportedMathOperationException("Please set a numeric value");
+        String valor1 = valor.replace(",", ".");
+        return Double.parseDouble(valor1);
     }
 
     private boolean isNumeric(String numero) {
