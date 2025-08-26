@@ -15,10 +15,17 @@ public class MathController {
             @PathVariable("a") String a,
             @PathVariable("b") String b) throws Exception {
         if (!isNumeric(a) || !isNumeric(b)) throw new UnsupportedMathOperationException("Please set a numeric value");
-        return convertToDouble(a) + convertToDouble(b);
+        return ConvertToDouble(a) + ConvertToDouble(b);
     }
 
-    private double convertToDouble(String valor) {
+    @RequestMapping("/mult/{a}/{b}")
+    public double mult(@PathVariable("a") String a, @PathVariable("b") String b) throws Exception {
+        if (!isNumeric(a) || !isNumeric(b)) throw new UnsupportedMathOperationException("Please set a numeric value");
+        return ConvertToDouble(a) * ConvertToDouble(b);
+
+    }
+
+    private double ConvertToDouble(String valor) {
         if (valor.isEmpty() || valor == null) throw new UnsupportedMathOperationException("Please set a numeric value");
         String valor1 = valor.replace(",", ".");
         return Double.parseDouble(valor1);
