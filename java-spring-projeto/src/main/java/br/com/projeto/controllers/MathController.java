@@ -43,6 +43,12 @@ public class MathController {
         return (ConvertToFloat(a) + ConvertToFloat(b)) / 2;
     }
 
+    @RequestMapping("raiz/{a}")
+    public double raiz(@PathVariable("a") String a) {
+        if (!isNumeric(a)) throw new UnsupportedMathOperationException("Please set a numeric value");
+        return Math.sqrt(ConvertToDouble(a));
+    }
+
     private double ConvertToDouble(String valor) {
         if (valor.isEmpty() || valor == null) throw new UnsupportedMathOperationException("Please set a numeric value");
         String valor1 = valor.replace(",", ".");
