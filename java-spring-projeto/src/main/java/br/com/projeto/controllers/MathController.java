@@ -25,6 +25,12 @@ public class MathController {
 
     }
 
+    @RequestMapping("/sub/{a}/{b}")
+    public double sub(@PathVariable("a") String a, @PathVariable("b") String b) {
+        if (!isNumeric(a) || !isNumeric(b)) throw new UnsupportedMathOperationException("Please set a numeric value");
+        return ConvertToDouble(a) - ConvertToDouble(b);
+    }
+
     private double ConvertToDouble(String valor) {
         if (valor.isEmpty() || valor == null) throw new UnsupportedMathOperationException("Please set a numeric value");
         String valor1 = valor.replace(",", ".");
