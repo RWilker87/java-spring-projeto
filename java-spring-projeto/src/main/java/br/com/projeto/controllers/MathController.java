@@ -37,6 +37,12 @@ public class MathController {
         return ConvertToFloat(a) / ConvertToFloat(b);
     }
 
+    @RequestMapping("media/{a}/{b}")
+    public float media(@PathVariable("a") String a, @PathVariable("b") String b) {
+        if (!isNumeric(a) || !isNumeric(b)) throw new UnsupportedMathOperationException("Please set a numeric value");
+        return (ConvertToFloat(a) + ConvertToFloat(b)) / 2;
+    }
+
     private double ConvertToDouble(String valor) {
         if (valor.isEmpty() || valor == null) throw new UnsupportedMathOperationException("Please set a numeric value");
         String valor1 = valor.replace(",", ".");
