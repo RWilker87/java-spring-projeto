@@ -34,7 +34,7 @@ public class MathController {
     @RequestMapping("div/{a}/{b}")
     public float div(@PathVariable("a") String a, @PathVariable("b") String b) {
         if (!isNumeric(a) || !isNumeric(b)) throw new UnsupportedMathOperationException("Please set a numeric value");
-        return ConvertToDouble(a) / ConvertToDouble(b);
+        return ConvertToFloat(a) / ConvertToFloat(b);
     }
 
     private double ConvertToDouble(String valor) {
@@ -42,7 +42,12 @@ public class MathController {
         String valor1 = valor.replace(",", ".");
         return Double.parseDouble(valor1);
     }
-    
+
+    private float ConvertToFloat(String valor) {
+        if (valor.isEmpty() || valor == null) throw new UnsupportedMathOperationException("Please set a numeric value");
+        String valor1 = valor.replace(",", ".");
+        return Float.parseFloat(valor1);
+    }
 
     private boolean isNumeric(String numero) {
         return numero.matches("[0-9]+");
